@@ -1,0 +1,56 @@
+# Node.js / React Native
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Metro bundler cache
+.metro-cache/
+
+# Build outputs
+/frontend/android/app/build/
+/frontend/android/build/
+/frontend/android/.gradle/
+/frontend/ios/build/
+
+# Env files
+.env
+*.env
+.env.*
+!/.env.example
+!/.env.development
+!/.env.production
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE-specific
+.idea/
+*.iml
+*.project
+*.classpath
+*.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Test reports
+coverage/
+
+# Temporary files
+*.log
+*.lock
+
+# Backend specific (if applicable, e.g. for Python)
+# __pycache__/
+# *.pyc
+
+# Large binary files (if any, consider Git LFS for these)
+# *.apk
+# *.ipa
+
+# Specific to user's current project structure
+frontend.rar
+frontend.zip
+restaurant.zip 
