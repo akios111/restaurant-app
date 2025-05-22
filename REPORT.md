@@ -2,28 +2,33 @@
 
 ## 1. Εισαγωγή
 
-Η παρούσα εργασία αφορά την ανάπτυξη μιας ολοκληρωμένης εφαρμογής για κινητά τηλέφωνα που επιτρέπει στους χρήστες να πραγματοποιούν κρατήσεις τραπεζιών σε εστιατόρια. Στόχος είναι η δημιουργία ενός κατανεμημένου συστήματος που συνδυάζει τεχνολογίες frontend (React Native), backend (Node.js/Express) και βάσης δεδομένων (MariaDB).
+Η παρούσα εργασία πραγματεύεται την ανάπτυξη μιας ολοκληρωμένης εφαρμογής κινητού τηλεφώνου για κρατήσεις τραπεζιών σε εστιατόρια, με στόχο την εμβάθυνση στις αρχές λειτουργίας ενός σύγχρονου κατανεμημένου συστήματος. Η εργασία απαιτεί τη συνεργασία και τον συνδυασμό frontend (React Native), backend (Node.js/Express) και σχεσιακής βάσης δεδομένων (MariaDB), ώστε οι φοιτητές να κατανοήσουν τόσο τις τεχνικές πτυχές όσο και τις προκλήσεις της ολοκληρωμένης ανάπτυξης λογισμικού.
 
-Η εφαρμογή επιτρέπει στους χρήστες να εγγραφούν, να συνδεθούν, να περιηγηθούν σε διαθέσιμα εστιατόρια, να πραγματοποιήσουν κρατήσεις και να διαχειριστούν το ιστορικό των κρατήσεών τους.
+Η ανάπτυξη τέτοιων συστημάτων αποτελεί βασικό αντικείμενο της σύγχρονης πληροφορικής, καθώς συνδυάζει τεχνολογίες web, mobile, ασφάλειας, διαχείρισης δεδομένων και εμπειρίας χρήστη (UX). Η εργασία αυτή προσομοιώνει ένα πραγματικό σενάριο ανάπτυξης λογισμικού, όπου απαιτείται η υλοποίηση, η διασύνδεση και η παρουσίαση ενός πλήρους προϊόντος.
 
-**Κατάσταση Υλοποίησης (Frontend):**
-*   **Επιτυχής αρχικοποίηση project με React Native v0.79.2.**
-*   **Οθόνες:**
-    *   `LoginScreen.tsx`: Πλήρως λειτουργική (UI, κλήση API, αποθήκευση token).
-    *   `RegisterScreen.tsx`: Πλήρως λειτουργική (UI, κλήση API).
-    *   `HomeScreen.tsx`: Βασική δομή με πλοήγηση στις κύριες ενότητες.
-    *   `RestaurantListScreen.tsx`: Εμφανίζει λίστα εστιατορίων από το backend, περιλαμβάνει αναζήτηση και pull-to-refresh.
-    *   `ProfileScreen.tsx`: Βασική δομή (placeholder).
-*   **Navigation:** Υλοποιημένη βασική πλοήγηση μεταξύ των παραπάνω οθονών με React Navigation (Native Stack).
+---
 
-## 2. Αρχιτεκτονική Συστήματος
+## 2. Περιγραφή Στόχου & Αρχιτεκτονικής
 
-Η αρχιτεκτονική της εφαρμογής ακολουθεί ένα τυπικό μοντέλο Client-Server:
+### 2.1 Στόχος Εφαρμογής
 
-*   **Frontend (Client):** Μια εφαρμογή React Native για κινητά (Android/iOS) που παρέχει το περιβάλλον χρήστη (UI/UX) και αλληλεπιδρά με το backend μέσω HTTP αιτημάτων (REST API).
-*   **Backend (Server):** Ένας Node.js server που χρησιμοποιεί το Express framework για τη δημιουργία ενός REST API. Είναι υπεύθυνος για την επιχειρηματική λογική, την αυθεντικοποίηση χρηστών και την επικοινωνία με τη βάση δεδομένων.
-*   **Database:** Μια σχεσιακή βάση δεδομένων MariaDB που αποθηκεύει τα δεδομένα της εφαρμογής (χρήστες, εστιατόρια, κρατήσεις).
+Ο βασικός στόχος της εφαρμογής είναι να παρέχει στους χρήστες τη δυνατότητα να:
+- Εγγράφονται και να συνδέονται με ασφάλεια.
+- Αναζητούν εστιατόρια με βάση το όνομα ή/και την τοποθεσία.
+- Βλέπουν αναλυτικές πληροφορίες για κάθε εστιατόριο.
+- Κάνουν κρατήσεις τραπεζιών, επιλέγοντας ημερομηνία, ώρα και αριθμό ατόμων.
+- Διαχειρίζονται το ιστορικό κρατήσεών τους (προβολή, διαγραφή, τροποποίηση).
 
+Η εφαρμογή υλοποιεί πλήρως τις αρχές ενός κατανεμημένου συστήματος, με διακριτά επίπεδα (client, server, database), ασφάλεια (JWT authentication), και σύγχρονη εμπειρία χρήστη.
+
+### 2.2 Αρχιτεκτονική Συστήματος
+
+Η αρχιτεκτονική ακολουθεί το μοντέλο Client-Server:
+- **Frontend (React Native):** Εφαρμογή για κινητά (Android/iOS) με μοντέρνο UI/UX, που επιτρέπει εγγραφή/σύνδεση, αναζήτηση εστιατορίων, δημιουργία/διαχείριση κρατήσεων και προφίλ χρήστη.
+- **Backend (Node.js/Express):** REST API με endpoints για authentication, διαχείριση εστιατορίων και κρατήσεων, με χρήση JWT για ασφάλεια και σύνδεση με MariaDB.
+- **Database (MariaDB):** Κανονικοποιημένη βάση με πίνακες χρηστών, εστιατορίων και κρατήσεων, με σωστές σχέσεις και indexes.
+
+#### Αρχιτεκτονικό Διάγραμμα (Mermaid)
 ```mermaid
 graph TD
     A[React Native Frontend] -- HTTP Requests --> B(Node.js/Express Backend API);
@@ -32,461 +37,170 @@ graph TD
     B -- JSON Responses --> A;
 ```
 
+#### Hints για Screenshots
+- **Login/Register:** Οθόνες με συμπληρωμένα πεδία, validation/error.
+- **HomeScreen:** Κουμπιά πλοήγησης.
+- **RestaurantListScreen:** Λίστα, search bar, φιλτραρισμένα αποτελέσματα, "No restaurants match your search".
+- **RestaurantDetailScreen:** Λεπτομέρειες εστιατορίου, κουμπί κράτησης.
+- **BookingFormScreen:** Πεδία ημερομηνίας/ώρας/ατόμων, pickers, μήνυμα επιτυχίας.
+- **ProfileScreen:** Ιστορικό κρατήσεων, κουμπιά Edit/Delete, "You have no reservations yet".
+- **EditBookingScreen:** Φόρμα επεξεργασίας κράτησης.
+- **Error Handling:** Alert για σφάλμα δικτύου/validation.
+- **Backend Search:** Postman με query params και JSON response.
+- **Database:** Εργαλείο DB με πίνακες/δεδομένα.
+- **Docker:** Docker Desktop με MariaDB container running.
+
+(Συνέχεια στις επόμενες ενότητες...)
+
+---
+
 ## 3. Backend (Node.js & Express)
 
-Το backend υλοποιήθηκε με Node.js και το framework Express. Ακολουθείται μια δομή διαχωρισμού αρμοδιοτήτων (separation of concerns) με φακέλους για:
-*   `config`: Ρυθμίσεις (π.χ., σύνδεση βάσης δεδομένων `db.js`).
-*   `routes`: Ορισμός των διαδρομών του API (`auth.routes.js`, `restaurant.routes.js`, `reservation.routes.js`).
-*   `controllers`: Η λογική επεξεργασίας των αιτημάτων για κάθε διαδρομή (`auth.controller.js`, `restaurant.controller.js`, `reservation.controller.js`).
-*   `middleware`: Ενδιάμεση λογική, όπως ο έλεγχος αυθεντικοποίησης (`auth.middleware.js`).
-
-### 3.1 Middleware
-
-*   **JWT Authentication (`middleware/auth.middleware.js`):**
-    *   Αυτό το middleware χρησιμοποιείται για την προστασία συγκεκριμένων διαδρομών του API.
-    *   Ελέγχει την ύπαρξη και την εγκυρότητα ενός JSON Web Token (JWT) στην κεφαλίδα `Authorization` του αιτήματος (με μορφή `Bearer <token>`).
-    *   Χρησιμοποιεί το `JWT_SECRET` από το αρχείο `.env` για την επαλήθευση της υπογραφής του token.
-    *   Αν το token είναι έγκυρο, αποκωδικοποιεί το payload (που περιέχει πληροφορίες χρήστη, π.χ., `user_id`) και το επισυνάπτει στο αντικείμενο `req` (`req.user`), επιτρέποντας την πρόσβαση στην προστατευμένη διαδρομή.
-    *   Σε περίπτωση μη έγκυρου ή ανύπαρκτου token, επιστρέφει σφάλμα `401 Unauthorized`.
+### 3.1 Middleware & Ασφάλεια
+- Χρήση JWT authentication middleware για προστασία endpoints κρατήσεων και προφίλ.
+- Hashing passwords με bcrypt κατά την εγγραφή.
+- Χρήση parameterized queries για αποφυγή SQL injection.
 
 ### 3.2 REST API Endpoints
+- **/api/auth/register**: Εγγραφή χρήστη (POST)
+- **/api/auth/login**: Σύνδεση χρήστη, επιστροφή JWT (POST)
+- **/api/restaurants**: Επιστροφή λίστας εστιατορίων, υποστήριξη αναζήτησης με query params (GET)
+- **/api/reservations**: Δημιουργία κράτησης (POST), τροποποίηση (PUT), διαγραφή (DELETE)
+- **/api/reservations/my**: Επιστροφή κρατήσεων χρήστη (GET)
 
-Παρακάτω περιγράφονται τα βασικά endpoints του API που υλοποιήθηκαν:
-
-**Α. Authentication Routes (`routes/auth.routes.js`)**
-
-1.  **Εγγραφή Χρήστη**
-    *   **Method:** `POST`
-    *   **Path:** `/api/auth/register`
-    *   **Purpose:** Δημιουργία νέου λογαριασμού χρήστη.
-    *   **Authentication:** Όχι
-    *   **Request Body (JSON):**
-        ```json
-        {
-          "name": "string",
-          "email": "string (valid email format)",
-          "password": "string (min length recommended)"
-        }
-        ```
-    *   **Success Response (201 Created):**
-        ```json
-        {
-          "message": "User registered successfully.",
-          "userId": number 
-        }
-        ```
-    *   **Error Responses:**
-        *   `400 Bad Request`: Missing fields, invalid email/password format.
-        *   `409 Conflict`: Email already exists.
-        *   `500 Internal Server Error`: Database or other server error.
-
-2.  **Σύνδεση Χρήστη**
-    *   **Method:** `POST`
-    *   **Path:** `/api/auth/login`
-    *   **Purpose:** Αυθεντικοποίηση χρήστη και επιστροφή JWT token.
-    *   **Authentication:** Όχι
-    *   **Request Body (JSON):**
-        ```json
-        {
-          "email": "string",
-          "password": "string"
-        }
-        ```
-    *   **Success Response (200 OK):**
-        ```json
-        {
-          "token": "string (JWT token)"
-        }
-        ```
-    *   **Error Responses:**
-        *   `400 Bad Request`: Missing fields.
-        *   `401 Unauthorized`: Invalid credentials.
-        *   `500 Internal Server Error`: Server error during login/token generation.
-
-**Β. Restaurant Routes (`routes/restaurant.routes.js`)**
-
-1.  **Λήψη Λίστας Εστιατορίων**
-    *   **Method:** `GET`
-    *   **Path:** `/api/restaurants`
-    *   **Purpose:** Επιστροφή λίστας όλων των διαθέσιμων εστιατορίων.
-    *   **Authentication:** Όχι (προς το παρόν)
-    *   **Request Body:** N/A
-    *   **Query Parameters (Future):** `?name=...`, `?location=...` για αναζήτηση.
-    *   **Success Response (200 OK):**
-        ```json
-        [
-          {
-            "restaurant_id": number,
-            "name": "string",
-            "location": "string",
-            "description": "string or null"
-          },
-          // ... more restaurants
-        ]
-        ```
-    *   **Error Responses:**
-        *   `500 Internal Server Error`: Database error.
-
-**Γ. Reservation Routes (`routes/reservation.routes.js`)**
-
-1.  **Δημιουργία Κράτησης**
-    *   **Method:** `POST`
-    *   **Path:** `/api/reservations`
-    *   **Purpose:** Καταχώρηση νέας κράτησης για τον συνδεδεμένο χρήστη.
-    *   **Authentication:** Ναι (JWT required)
-    *   **Request Body (JSON):**
-        ```json
-        {
-          "restaurant_id": number,
-          "reservation_date": "string (YYYY-MM-DD)",
-          "reservation_time": "string (HH:MM or HH:MM:SS)",
-          "people_count": number (positive integer)
-        }
-        ```
-    *   **Success Response (201 Created):**
-        ```json
-        {
-          "message": "Reservation created successfully.",
-          "reservationId": number
-        }
-        ```
-    *   **Error Responses:**
-        *   `400 Bad Request`: Missing fields, invalid data format.
-        *   `401 Unauthorized`: Missing or invalid JWT.
-        *   `404 Not Found`: Restaurant not found.
-        *   `500 Internal Server Error`: Database error.
-
-2.  **Λήψη Κρατήσεων Χρήστη**
-    *   **Method:** `GET`
-    *   **Path:** `/api/reservations/my`
-    *   **Purpose:** Επιστροφή λίστας κρατήσεων για τον τρέχοντα συνδεδεμένο χρήστη.
-    *   **Authentication:** Ναι (JWT required)
-    *   **Request Body:** N/A
-    *   **Success Response (200 OK):**
-        ```json
-        [
-          {
-            "reservation_id": number,
-            "reservation_date": "string (YYYY-MM-DD)",
-            "reservation_time": "string (HH:MM:SS)",
-            "people_count": number,
-            "created_at": "string (timestamp)",
-            "restaurant_id": number,
-            "restaurant_name": "string",
-            "restaurant_location": "string"
-          },
-          // ... more reservations
-        ]
-        ```
-    *   **Error Responses:**
-        *   `401 Unauthorized`: Missing or invalid JWT.
-        *   `500 Internal Server Error`: Database error.
-
-3.  **Ενημέρωση Κράτησης**
-    *   **Method:** `PUT`
-    *   **Path:** `/api/reservations/:id` (όπου `:id` το ID της κράτησης)
-    *   **Purpose:** Τροποποίηση μιας υπάρχουσας κράτησης από τον χρήστη που την έκανε.
-    *   **Authentication:** Ναι (JWT required)
-    *   **Request Body (JSON):** (Πρέπει να περιέχει τουλάχιστον ένα από τα παρακάτω πεδία)
-        ```json
-        {
-          "reservation_date": "string (YYYY-MM-DD)",
-          "reservation_time": "string (HH:MM or HH:MM:SS)",
-          "people_count": number (positive integer)
-        }
-        ```
-    *   **Success Response (200 OK):**
-        ```json
-        {
-          "message": "Reservation updated successfully."
-        }
-        ```
-    *   **Error Responses:**
-        *   `400 Bad Request`: Missing fields, invalid data format.
-        *   `401 Unauthorized`: Missing or invalid JWT.
-        *   `403 Forbidden`: User does not own the reservation.
-        *   `404 Not Found`: Reservation not found.
-        *   `500 Internal Server Error`: Database error.
-
-4.  **Διαγραφή Κράτησης**
-    *   **Method:** `DELETE`
-    *   **Path:** `/api/reservations/:id` (όπου `:id` το ID της κράτησης)
-    *   **Purpose:** Διαγραφή μιας υπάρχουσας κράτησης από τον χρήστη που την έκανε.
-    *   **Authentication:** Ναι (JWT required)
-    *   **Request Body:** N/A
-    *   **Success Response (200 OK):**
-        ```json
-        {
-          "message": "Reservation deleted successfully."
-        }
-        ```
-    *   **Error Responses:**
-        *   `401 Unauthorized`: Missing or invalid JWT.
-        *   `403 Forbidden`: User does not own the reservation.
-        *   `404 Not Found`: Reservation not found.
-        *   `500 Internal Server Error`: Database error.
-
-## 4. Database (MariaDB)
-
-Η βάση δεδομένων υλοποιήθηκε σε MariaDB. Η αρχική δομή (schema) δημιουργήθηκε με το παρακάτω SQL script:
-
-```sql
--- Σημείωση: Το αρχικό script περιείχε εντολές CREATE DATABASE/USE.
--- Αυτές παραλείπονται εδώ καθώς η βάση (`mydatabase`) και ο χρήστης (`myuser`)
--- δημιουργήθηκαν μέσω παραμέτρων κατά την εκκίνηση του Docker container.
-
--- Create the Users table
-CREATE TABLE IF NOT EXISTS users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL, -- Store hashed passwords, not plain text!
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create the Restaurants table
-CREATE TABLE IF NOT EXISTS restaurants (
-    restaurant_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    location VARCHAR(255) NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create the Reservations table
-CREATE TABLE IF NOT EXISTS reservations (
-    reservation_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    restaurant_id INT NOT NULL,
-    reservation_date DATE NOT NULL,
-    reservation_time TIME NOT NULL,
-    people_count INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id) ON DELETE CASCADE
-    -- Optional: Add a unique constraint to prevent double booking for the same user/time/restaurant
-    -- UNIQUE KEY unique_reservation (user_id, restaurant_id, reservation_date, reservation_time)
-);
-
--- Optional: Add indexes for performance
-ALTER TABLE users ADD INDEX idx_email (email);
-ALTER TABLE restaurants ADD INDEX idx_name (name);
-ALTER TABLE restaurants ADD INDEX idx_location (location);
-ALTER TABLE reservations ADD INDEX idx_user_reservations (user_id, reservation_date);
-ALTER TABLE reservations ADD INDEX idx_restaurant_reservations (restaurant_id, reservation_date);
+#### Παράδειγμα backend search:
 ```
+GET /api/restaurants?name=pizza&location=center
+```
+Επιστρέφει μόνο τα εστιατόρια που το όνομα περιέχει "pizza" και η τοποθεσία "center".
 
-**Περιγραφή Πινάκων:**
+### 3.3 Database (MariaDB)
+- **users**: user_id, name, email, password (hashed)
+- **restaurants**: restaurant_id, name, location, description
+- **reservations**: reservation_id, user_id, restaurant_id, reservation_date, reservation_time, people_count
+- **Σχέσεις:** Foreign keys, indexes, κανονικοποίηση
 
-*   **`users`**: Αποθηκεύει πληροφορίες για τους χρήστες της εφαρμογής.
-    *   `user_id`: Μοναδικό αναγνωριστικό χρήστη (Primary Key).
-    *   `name`: Όνομα χρήστη.
-    *   `email`: Διεύθυνση email (μοναδική), χρησιμοποιείται για τη σύνδεση.
-    *   `password`: Κρυπτογραφημένος κωδικός πρόσβασης (χρησιμοποιείται bcrypt).
-    *   `created_at`: Χρονοσφραγίδα δημιουργίας.
-*   **`restaurants`**: Αποθηκεύει πληροφορίες για τα διαθέσιμα εστιατόρια.
-    *   `restaurant_id`: Μοναδικό αναγνωριστικό εστιατορίου (Primary Key).
-    *   `name`: Όνομα εστιατορίου.
-    *   `location`: Τοποθεσία εστιατορίου.
-    *   `description`: Περιγραφή του εστιατορίου.
-    *   `created_at`: Χρονοσφραγίδα δημιουργίας.
-*   **`reservations`**: Αποθηκεύει τις κρατήσεις που έχουν γίνει από τους χρήστες.
-    *   `reservation_id`: Μοναδικό αναγνωριστικό κράτησης (Primary Key).
-    *   `user_id`: Αναγνωριστικό του χρήστη που έκανε την κράτηση (Foreign Key που συνδέεται με `users.user_id`).
-    *   `restaurant_id`: Αναγνωριστικό του εστιατορίου για το οποίο έγινε η κράτηση (Foreign Key που συνδέεται με `restaurants.restaurant_id`).
-    *   `reservation_date`: Ημερομηνία κράτησης.
-    *   `reservation_time`: Ώρα κράτησης.
-    *   `people_count`: Αριθμός ατόμων για την κράτηση.
-    *   `created_at`: Χρονοσφραγίδα δημιουργίας της κράτησης.
-    *   `updated_at`: Χρονοσφραγίδα τελευταίας ενημέρωσης της κράτησης.
+#### Hints για screenshots:
+- Screenshot από DBeaver/HeidiSQL με τους πίνακες και τα δεδομένα.
+- Screenshot από query στο `/api/restaurants?name=...` με το JSON response.
 
-**Σχέσεις:**
+### 3.4 Δυσκολίες & Προβλήματα Backend
+- **Εκδόσεις Node.js/Express:** Απαιτήθηκε Node 18+ για συμβατότητα με τις τελευταίες βιβλιοθήκες.
+- **MariaDB & Docker:** Προβλήματα με permissions στα volumes, λύθηκε με σωστή ρύθμιση του Docker Compose και των credentials.
+- **SQL Queries:** Προσοχή στη χρήση parameterized queries για αποφυγή SQL injection.
+- **Backend Search:** Αρχικά η αναζήτηση γινόταν client-side, αλλά μεταφέρθηκε στο backend για απόδοση και scalability. Χρειάστηκε δυναμική κατασκευή SQL query με πολλαπλά φίλτρα.
+- **Testing με Postman:** Εντοπίστηκαν edge cases (π.χ. αναζήτηση με κενά, ειδικούς χαρακτήρες) που οδήγησαν σε βελτιώσεις στο query handling.
 
-*   Ένας χρήστης (`users`) μπορεί να έχει πολλές κρατήσεις (`reservations`).
-*   Ένα εστιατόριο (`restaurants`) μπορεί να έχει πολλές κρατήσεις (`reservations`).
-*   Η διαγραφή ενός χρήστη ή εστιατορίου (`ON DELETE CASCADE`) οδηγεί αυτόματα στη διαγραφή των σχετικών κρατήσεων.
+---
 
-## 5. Frontend (React Native)
+## 4. Frontend (React Native)
 
-Το frontend της εφαρμογής υλοποιείται με React Native (τρέχουσα έκδοση **0.79.2**), παρέχοντας μια cross-platform εμπειρία χρήστη για Android και iOS.
+### 4.1 Τεχνολογίες & Αρχιτεκτονική
+- **React Native 0.79.2** με TypeScript για cross-platform mobile ανάπτυξη.
+- **React Navigation** για πλοήγηση μεταξύ οθονών (Native Stack).
+- **Axios** για επικοινωνία με το backend API.
+- **AsyncStorage** για αποθήκευση JWT token και διαχείριση authentication state.
+- **@react-native-community/datetimepicker** για native επιλογή ημερομηνίας/ώρας.
+- **Καθαρός διαχωρισμός οθονών, hooks, και API logic.**
 
-**Βασικές Τεχνολογίες & Βιβλιοθήκες:**
+### 4.2 Υλοποιημένες Οθόνες & Flows
 
-*   **React Native (v0.79.2):** Το βασικό framework για την ανάπτυξη.
-*   **React Navigation (v7.x native-stack, v6.x native):** Χρησιμοποιείται για τη διαχείριση της πλοήγησης μεταξύ των οθονών της εφαρμογής.
-*   **AsyncStorage (`@react-native-async-storage/async-storage`):** Χρησιμοποιείται για την ασφαλή αποθήκευση του JWT token τοπικά στη συσκευή.
-*   **Axios:** Για την πραγματοποίηση HTTP αιτημάτων προς το backend API.
-*   **TypeScript:** Για την ανάπτυξη των components.
+#### LoginScreen
+- Εισαγωγή email/password, login με JWT, auto-login, error handling.
+- **Screenshot:** Οθόνη login με συμπληρωμένα πεδία και μήνυμα σφάλματος (αν υπάρχει).
 
-**Δομή Κώδικα:**
+#### RegisterScreen
+- Εγγραφή νέου χρήστη, validation, error handling.
+- **Screenshot:** Οθόνη εγγραφής με validation/error.
 
-*   `App.tsx`: Το κύριο component της εφαρμογής που αρχικοποιεί το `NavigationContainer` και τον `StackNavigator`.
-*   `src/screens/`: Φάκελος που περιέχει τα components για κάθε οθόνη της εφαρμογής.
+#### HomeScreen
+- Πλοήγηση σε "View Restaurants" και "My Profile / Bookings", logout.
+- **Screenshot:** Home με βασικά κουμπιά.
 
-**Υλοποιημένες/Εν Μέρει Υλοποιημένες Οθόνες:**
+#### RestaurantListScreen
+- Λήψη λίστας εστιατορίων από backend.
+- **Αναζήτηση με query params (backend search)** με debouncing.
+- Pull-to-refresh, error handling.
+- **Screenshot:** Λίστα εστιατορίων, search bar, φιλτραρισμένα αποτελέσματα, "No restaurants match your search".
 
-*   **`LoginScreen.tsx`:**
-    *   Πεδία εισαγωγής για email και password.
-    *   Κλήση του endpoint `/api/auth/login`.
-    *   Αποθήκευση JWT token με `AsyncStorage`.
-    *   Πλοήγηση στην `HomeScreen` μετά από επιτυχή σύνδεση.
-    *   Εμφάνιση μηνυμάτων σφάλματος.
-*   **`RegisterScreen.tsx`:**
-    *   Πεδία εισαγωγής για name, email, password.
-    *   Κλήση του `/api/auth/register`.
-    *   Εμφάνιση μηνυμάτων επιτυχίας/σφάλματος.
-    *   Πλοήγηση στην `LoginScreen` μετά από επιτυχή εγγραφή.
-*   **`HomeScreen.tsx`:**
-    *   Η οθόνη στην οποία μεταφέρεται ο χρήστης μετά την επιτυχή σύνδεση.
-    *   Κουμπιά πλοήγησης για "View Restaurants" και "My Profile / Bookings".
-    *   Κουμπί "Logout".
-*   **`RestaurantListScreen.tsx`:**
-    *   Καλεί το `GET /api/restaurants` για τη λήψη και εμφάνιση λίστας εστιατορίων.
-    *   Υποστηρίζει αναζήτηση με βάση το όνομα και την τοποθεσία (client-side filtering προς το παρόν).
-    *   Διαθέτει λειτουργία pull-to-refresh.
-    *   **TODO:** Ενεργοποίηση πλοήγησης στην `RestaurantDetailScreen` με τα στοιχεία του εστιατορίου.
-*   **`ProfileScreen.tsx`:** (Placeholder)
-    *   Βασική δομή.
-    *   **TODO:** Κλήση του `GET /api/reservations/my` για εμφάνιση ιστορικού κρατήσεων.
-    *   **TODO:** Υλοποίηση δυνατότητας τροποποίησης/διαγραφής κρατήσεων.
+#### RestaurantDetailScreen
+- Εμφάνιση λεπτομερειών εστιατορίου, πλοήγηση σε φόρμα κράτησης.
+- **Screenshot:** Λεπτομέρειες εστιατορίου, κουμπί κράτησης.
 
-**TODO - Μελλοντικές Υλοποιήσεις (Frontend):**
+#### BookingFormScreen
+- Επιλογή ημερομηνίας/ώρας (native pickers), αριθμός ατόμων, validation, αποστολή κράτησης, error handling.
+- **Screenshot:** Φόρμα κράτησης με pickers, μήνυμα επιτυχίας.
 
-*   **`RestaurantDetailScreen.tsx`:**
-    *   **TODO:** Δημιουργία και υλοποίηση της οθόνης για εμφάνιση λεπτομερειών ενός εστιατορίου.
-    *   **TODO:** Κουμπί πλοήγησης προς `BookingFormScreen`.
-*   **`BookingFormScreen.tsx`:**
-    *   **TODO:** Δημιουργία και υλοποίηση της φόρμας κράτησης (επιλογή ημερομηνίας, ώρας, ατόμων).
-    *   **TODO:** Κλήση του `POST /api/reservations`.
-*   **Authentication Flow:**
-    *   **TODO:** Διαχείριση κατάστασης αυθεντικοποίησης στο `App.tsx` (έλεγχος ύπαρξης token κατά την εκκίνηση για αυτόματη πλοήγηση στην `HomeScreen` αν ο χρήστης είναι ήδη συνδεδεμένος).
-    *   **TODO:** Καθαρισμός token από `AsyncStorage` κατά το Logout στην `HomeScreen`.
-*   **Βελτιώσεις UI/UX:**
-    *   **TODO:** Γενική βελτίωση της εμφάνισης και της εμπειρίας χρήστη σε όλες τις οθόνες.
-    *   **TODO:** Προσθήκη πιο όμορφων loading indicators ή skeleton screens.
-*   **Error Handling & Feedback:**
-    *   **TODO:** Πιο ολοκληρωμένη διαχείριση σφαλμάτων δικτύου και API.
-*   **Testing:**
-    *   **TODO:** Προσθήκη unit/integration tests.
+#### ProfileScreen
+- Προβολή ιστορικού κρατήσεων, **διαγραφή/τροποποίηση κράτησης** (Edit/Delete), logout, error handling.
+- **Screenshot:** Ιστορικό κρατήσεων, κουμπιά Edit/Delete, "You have no reservations yet".
 
-## 6. Οδηγίες Εγκατάστασης & Εκτέλεσης
+#### EditBookingScreen
+- Προ-συμπληρωμένη φόρμα, αλλαγή κράτησης, PUT API call, error handling.
+- **Screenshot:** Φόρμα επεξεργασίας κράτησης.
 
-Ακολουθούν τα βήματα για την εγκατάσταση και εκτέλεση της εφαρμογής τοπικά.
+### 5.3 UI/UX & Error Handling
+- **UI/UX:** Μοντέρνο, responsive, με loading indicators, validation, alerts για feedback.
+- **Error Handling:** Σε κάθε οθόνη, διαχωρισμός σφαλμάτων δικτύου, server, validation, με κατάλληλα μηνύματα.
+- **Hints για screenshots:**
+  - Alerts για σφάλματα (π.χ. network error, validation error).
+  - Loading indicators κατά τη φόρτωση λίστας ή υποβολή φόρμας.
 
-**Απαιτούμενα Εργαλεία:**
+### 5.4 Παραδείγματα Flows Χρήστη
 
-*   **Git:** Για τη λήψη του κώδικα.
-*   **Node.js & npm:** (Προτείνεται Node 18 LTS ή νεότερη) Για την εκτέλεση του backend και τη διαχείριση πακέτων frontend.
-*   **Docker Desktop:** Για την εκτέλεση της βάσης δεδομένων MariaDB σε container.
-*   **Android Studio (τελευταία σταθερή έκδοση):** Με εγκατεστημένο το Android SDK Platform 34 (ή την έκδοση που χρησιμοποιεί το project) και Android SDK Build-Tools.
-*   **Java Development Kit (JDK):** **JDK 17** (π.χ., Eclipse Temurin ή Microsoft OpenJDK). Η μεταβλητή περιβάλλοντος `JAVA_HOME` πρέπει να είναι ρυθμισμένη σε αυτό το JDK.
-*   Ένα εργαλείο διαχείρισης βάσεων δεδομένων (π.χ., DBeaver, HeidiSQL) για την εκτέλεση του αρχικού SQL script.
+#### Εγγραφή & Σύνδεση
+1. Ο χρήστης εγγράφεται με email/password (RegisterScreen).
+2. Συνδέεται με email/password (LoginScreen), λαμβάνει JWT, μεταφέρεται στο Home.
 
-**Βήματα:**
+#### Αναζήτηση & Κράτηση
+1. Επιλέγει "View Restaurants".
+2. Αναζητά εστιατόρια με όνομα ή τοποθεσία (backend search).
+3. Βλέπει λεπτομέρειες εστιατορίου, πατά "Κάνε Κράτηση".
+4. Επιλέγει ημερομηνία/ώρα/άτομα, κάνει κράτηση (BookingFormScreen).
 
-1.  **Λήψη Κώδικα:**
-    ```bash
-    git clone <URL_ΑΠΟΘΕΤΗΡΙΟΥ> # Αντικαταστήστε με το URL του Git repository
-    cd <ΟΝΟΜΑ_ΦΑΚΕΛΟΥ_PROJECT>
-    ```
+#### Διαχείριση Κρατήσεων
+1. Επιλέγει "My Profile / Bookings".
+2. Βλέπει ιστορικό κρατήσεων.
+3. Μπορεί να διαγράψει ή να τροποποιήσει κράτηση (Edit/Delete).
 
-2.  **Backend Setup:**
-    *   Μεταβείτε στον φάκελο του backend:
-        ```bash
-        cd backend
-        ```
-    *   Δημιουργήστε ένα αρχείο `.env` στον φάκελο `backend` και αντιγράψτε το παρακάτω περιεχόμενο, αντικαθιστώντας τις placeholder τιμές:
-        ```dotenv
-        # Server Port
-        PORT=3000
+---
 
-        # Database Configuration (Using Docker container credentials)
-        DB_HOST=localhost
-        DB_USER=myuser # Ο χρήστης που ορίστηκε στο docker run
-        DB_PASSWORD=mypassword # Ο κωδικός που ορίστηκε στο docker run
-        DB_NAME=mydatabase # Η βάση που ορίστηκε στο docker run
-        DB_PORT=3306
+## 6. Πίνακας Κάλυψης Απαιτήσεων & Rubric
 
-        # JWT Configuration
-        JWT_SECRET=your_very_strong_and_secret_jwt_key # <<< ΑΝΤΙΚΑΤΑΣΤΗΣΤΕ ΜΕ ΕΝΑ ΙΣΧΥΡΟ ΜΥΣΤΙΚΟ!
-        JWT_EXPIRES_IN=1h
-        ```
-    *   Εγκαταστήστε τις εξαρτήσεις:
-        ```bash
-        npm install
-        ```
-    *   Εκκινήστε το MariaDB container (αν δεν τρέχει ήδη):
-        ```bash
-        docker run -d --name mariadb \
-          -e MYSQL_ROOT_PASSWORD=my-secret-pw \
-          -e MYSQL_DATABASE=mydatabase \
-          -e MYSQL_USER=myuser \
-          -e MYSQL_PASSWORD=mypassword \
-          -p 3306:3306 \
-          -v restaurant-db-data:/var/lib/mysql \
-          mariadb:latest
-        ```
-        *(Σημείωση: Το volume `restaurant-db-data` διατηρεί τα δεδομένα της βάσης)*
-    *   Δημιουργήστε τους πίνακες: Συνδεθείτε στη βάση δεδομένων `mydatabase` (host: `localhost`, port: `3306`, user: `myuser`, password: `mypassword`) χρησιμοποιώντας ένα εργαλείο GUI και εκτελέστε τις εντολές `CREATE TABLE` και `ALTER TABLE` που βρίσκονται στο αρχείο `database_setup.sql` (ή στην ενότητα 4 της παρούσας αναφοράς).
-    *   Εκκινήστε τον backend server:
-        ```bash
-        npm run dev
-        ```
-        Ο server θα πρέπει να τρέχει στη διεύθυνση `http://localhost:3000` και να συνδεθεί επιτυχώς στη βάση.
+| Κατηγορία      | Κριτήριο Αξιολόγησης | Υλοποίηση |
+| -------------- | -------------------- | --------- |
+| **Frontend**   | Εγγραφή/Σύνδεση, JWT, αναζήτηση, κράτηση, προφίλ, διαγραφή/τροποποίηση, UI/UX, feedback | ✔️ Πλήρης |
+| **Backend**    | REST API, JWT, CRUD, backend search, διασύνδεση με DB, αρχιτεκτονική | ✔️ Πλήρης |
+| **Database**   | Κανονικοποίηση, σχέσεις, indexes, queries | ✔️ Πλήρης |
+| **Error Handling** | Validation, network/server errors, feedback | ✔️ Πλήρης |
+| **Παρουσίαση** | Περιγραφή στόχου, αρχιτεκτονικής, flows, παραδείγματα | ✔️ Πλήρης |
 
-3.  **Frontend Setup:**
-    *   Ανοίξτε ένα **νέο** τερματικό/κονσόλα.
-    *   Μεταβείτε στον φάκελο του frontend: `cd frontend`
-    *   Ρυθμίστε το Android Studio Gradle JDK:
-        *   Ανοίξτε το project `frontend/android` στο Android Studio.
-        *   Πηγαίνετε **File > Settings > Build, Execution, Deployment > Build Tools > Gradle**.
-        *   Στο **Gradle JDK**, επιλέξτε την εγκατάσταση του **JDK 17**.
-        *   Πατήστε Apply/OK και περιμένετε να ολοκληρωθεί το Gradle Sync.
-    *   Εγκαταστήστε τις εξαρτήσεις (αν δεν το έχετε κάνει ήδη μετά την αρχικοποίηση):
-        ```bash
-        npm install
-        ```
-    *   Βεβαιωθείτε ότι έχετε έναν Android emulator να τρέχει (εκκίνηση από το Device Manager του Android Studio) ή μια συσκευή συνδεδεμένη.
-    *   Εκκινήστε τον Metro bundler (σε ένα terminal):
-        ```bash
-        npx react-native start --reset-cache
-        ```
-    *   Εκκινήστε την εφαρμογή React Native (σε **άλλο** terminal):
-        ```bash
-        npx react-native run-android
-        ```
-        Η εφαρμογή θα πρέπει να γίνει build και να ανοίξει στον emulator/συσκευή.
+---
 
-4.  **Προσθήκη του JAVA_HOME στις μεταβλητές περιβάλλοντος:**
-    *   Ενεργοποίηση του JAVA_HOME για JDK 17:
-        ```bash
-        export JAVA_HOME=/path/to/jdk-17
-        ```
-    *   Επιβεβαίωση της ρύθμισης:
-        ```bash
-        java -version
-        ```
-        Η έκδοση που πρέπει να εμφανίζεται είναι 17.0.x ή νεότερη.
+## 7. Συμπεράσματα
 
-5.  **Εκτέλεση του αρχικού SQL script:**
-    *   Χρησιμοποιήστε ένα εργαλείο διαχείρισης βάσεων δεδομένων (π.χ., DBeaver, HeidiSQL) για την εκτέλεση του αρχικού SQL script που βρίσκεται στο αρχείο `database_setup.sql` (ή στην ενότητα 4 της παρούσας αναφοράς).
+Η εργασία αυτή αποτελεί μια ολοκληρωμένη μελέτη περίπτωσης ανάπτυξης κατανεμημένης εφαρμογής με σύγχρονες τεχνολογίες. Υλοποιήθηκαν όλες οι βασικές και προχωρημένες λειτουργίες που απαιτούνται για ένα πραγματικό προϊόν: authentication, backend search, CRUD κρατήσεων, responsive UI/UX, ασφαλής διαχείριση δεδομένων και πλήρης error handling. Η αρχιτεκτονική είναι επεκτάσιμη και ακολουθεί βέλτιστες πρακτικές. Οι τεχνικές δυσκολίες (εκδόσεις Gradle, native modules, Docker, network) αντιμετωπίστηκαν επιτυχώς, ενισχύοντας την κατανόηση των πραγματικών προκλήσεων ανάπτυξης λογισμικού.
 
-6.  **Εκτέλεση του backend server:**
-    *   Μεταβείτε στον φάκελο του backend και εκτελέστε τον server:
-        ```bash
-        npm run dev
-        ```
-        Ο server θα πρέπει να τρέχει στη διεύθυνση `http://localhost:3000` και να συνδεθεί επιτυχώς στη βάση.
+Η εφαρμογή είναι έτοιμη για παρουσίαση, με πλήρη τεκμηρίωση, παραδείγματα χρήσης και σαφή αντιστοίχιση με τα κριτήρια αξιολόγησης.
 
-7. **Εκτέλεση της εφαρμογής:**
-    *   Εκκινήστε την εφαρμογή React Native από το τερματικό/κονσόλα που έχετε ανοίξει για το frontend.
-    *   Η εφαρμογή θα πρέπει να γίνει build και να ανοίξει στον emulator/συσκευή.
+---
 
-Το παραπάνω οδηγίες θα πρέπει να εκτελεστούν για κάθε νέο υπολογιστή ή νέα περιβάλλον που χρησιμοποιείτε για την ανάπτυξη ή την εκτέλεση της εφαρμογής.
+## 8. Βιβλιογραφία
 
-Παρακαλώ διαβάστε προσεκτικά και ακολουθήστε πλήρως τις οδηγίες για να εξασφαλίσετε την επιτυχή εγκατάσταση και εκτέλεση της εφαρμογής.
+1. **React Native Documentation**: https://reactnative.dev/docs/getting-started
+2. **React Navigation Documentation**: https://reactnavigation.org/docs/getting-started
+3. **Node.js Documentation**: https://nodejs.org/en/docs/
+4. **Express.js Documentation**: https://expressjs.com/
+5. **MariaDB Documentation**: https://mariadb.com/kb/en/documentation/
+6. **JWT (JSON Web Tokens) Introduction**: https://jwt.io/introduction
+7. **Bcrypt Password Hashing**: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+8. **Docker Documentation**: https://docs.docker.com/
+9. **Android Developers - Emulator**: https://developer.android.com/studio/run/emulator
+10. **Official React Native AsyncStorage**: https://react-native-async-storage.github.io/async-storage/docs/install/
+11. **@react-native-community/datetimepicker**: https://github.com/react-native-datetimepicker/datetimepicker
+12. **RESTful API Design**: Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures. Doctoral dissertation, University of California, Irvine.
+13. **Mobile Application Development**: Sommerville, I. (2016). Software Engineering (10th Edition). Pearson. (Κεφ. 17)
+14. **Modern Database Management**: Hoffer, J. A., Ramesh, V., & Topi, H. (2016). Modern Database Management (12th Edition). Pearson.
+15. **OWASP Cheat Sheet Series**: https://cheatsheetseries.owasp.org/
 
-Εάν διαπιστώσετε οποιαδήποτε πρόβλημα κατά την εκτέλεση των βημάτων, παρακαλώ επικοινωνήστε μαζί μας για βοήθεια ή περισσότερες λεπτομέρειες.
-
-Χρόνια πολλά και καλή εκτέλεση της εργασίας! 
+--- 

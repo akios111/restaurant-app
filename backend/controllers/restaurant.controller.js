@@ -2,11 +2,30 @@ const db = require('../config/db');
 
 // Get all restaurants
 exports.getAllRestaurants = async (req, res) => {
-  // TODO: Implement search by name or location based on query parameters (req.query)
-  // const { location, name } = req.query;
+  const { name, location } = req.query; // Get search parameters from query
 
   try {
-    const [restaurants] = await db.query('SELECT restaurant_id, name, location, description FROM restaurants ORDER BY name');
+    let sqlQuery = 'SELECT restaurant_id, name, location, description FROM restaurants';
+    const queryParams = [];
+    const conditions = [];
+
+    if (name) {
+      conditions.push('name LIKE ?');
+      queryParams.push(`%${name}%`);
+    }
+
+    if (location) {
+      conditions.push('location LIKE ?');
+      queryParams.push(`%${location}%`);
+    }
+
+    if (conditions.length > 0) {
+      sqlQuery += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    sqlQuery += ' ORDER BY name'; // Keep existing order by
+
+    const [restaurants] = await db.query(sqlQuery, queryParams);
     
     res.json(restaurants);
 
