@@ -53,4 +53,7 @@ coverage/
 # Specific to user's current project structure
 frontend.rar
 frontend.zip
-restaurant.zip 
+restaurant.zip
+
+# Problematic image file
+screens/invalid-login.png 
