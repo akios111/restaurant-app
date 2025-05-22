@@ -6,6 +6,16 @@
 
 Η εφαρμογή επιτρέπει στους χρήστες να εγγραφούν, να συνδεθούν, να περιηγηθούν σε διαθέσιμα εστιατόρια, να πραγματοποιήσουν κρατήσεις και να διαχειριστούν το ιστορικό των κρατήσεών τους.
 
+**Κατάσταση Υλοποίησης (Frontend):**
+*   **Επιτυχής αρχικοποίηση project με React Native v0.79.2.**
+*   **Οθόνες:**
+    *   `LoginScreen.tsx`: Πλήρως λειτουργική (UI, κλήση API, αποθήκευση token).
+    *   `RegisterScreen.tsx`: Πλήρως λειτουργική (UI, κλήση API).
+    *   `HomeScreen.tsx`: Βασική δομή με πλοήγηση στις κύριες ενότητες.
+    *   `RestaurantListScreen.tsx`: Εμφανίζει λίστα εστιατορίων από το backend, περιλαμβάνει αναζήτηση και pull-to-refresh.
+    *   `ProfileScreen.tsx`: Βασική δομή (placeholder).
+*   **Navigation:** Υλοποιημένη βασική πλοήγηση μεταξύ των παραπάνω οθονών με React Navigation (Native Stack).
+
 ## 2. Αρχιτεκτονική Συστήματος
 
 Η αρχιτεκτονική της εφαρμογής ακολουθεί ένα τυπικό μοντέλο Client-Server:
@@ -299,45 +309,66 @@ ALTER TABLE reservations ADD INDEX idx_restaurant_reservations (restaurant_id, r
 
 ## 5. Frontend (React Native)
 
-Το frontend της εφαρμογής υλοποιείται με React Native, παρέχοντας μια cross-platform εμπειρία χρήστη για Android και iOS.
+Το frontend της εφαρμογής υλοποιείται με React Native (τρέχουσα έκδοση **0.79.2**), παρέχοντας μια cross-platform εμπειρία χρήστη για Android και iOS.
 
 **Βασικές Τεχνολογίες & Βιβλιοθήκες:**
 
-*   **React Native:** Το βασικό framework για την ανάπτυξη.
-*   **React Navigation:** Χρησιμοποιείται για τη διαχείριση της πλοήγησης μεταξύ των οθονών της εφαρμογής. Συγκεκριμένα, έχει υλοποιηθεί ένα `NativeStackNavigator` (`@react-navigation/native-stack`) για τη διαχείριση της στοίβας πλοήγησης.
-*   **AsyncStorage (`@react-native-async-storage/async-storage`):** Χρησιμοποιείται για την ασφαλή αποθήκευση του JWT token τοπικά στη συσκευή μετά την επιτυχή σύνδεση του χρήστη.
-*   **Fetch API:** Ενσωματωμένο API του React Native για την πραγματοποίηση HTTP αιτημάτων προς το backend API.
+*   **React Native (v0.79.2):** Το βασικό framework για την ανάπτυξη.
+*   **React Navigation (v7.x native-stack, v6.x native):** Χρησιμοποιείται για τη διαχείριση της πλοήγησης μεταξύ των οθονών της εφαρμογής.
+*   **AsyncStorage (`@react-native-async-storage/async-storage`):** Χρησιμοποιείται για την ασφαλή αποθήκευση του JWT token τοπικά στη συσκευή.
+*   **Axios:** Για την πραγματοποίηση HTTP αιτημάτων προς το backend API.
+*   **TypeScript:** Για την ανάπτυξη των components.
 
 **Δομή Κώδικα:**
 
 *   `App.tsx`: Το κύριο component της εφαρμογής που αρχικοποιεί το `NavigationContainer` και τον `StackNavigator`.
 *   `src/screens/`: Φάκελος που περιέχει τα components για κάθε οθόνη της εφαρμογής.
 
-**Υλοποιημένες Οθόνες:**
+**Υλοποιημένες/Εν Μέρει Υλοποιημένες Οθόνες:**
 
 *   **`LoginScreen.tsx`:**
-    *   Περιέχει πεδία εισαγωγής (TextInput) για email και password.
-    *   Χρησιμοποιεί React state (`useState`) για τη διαχείριση των τιμών των πεδίων.
-    *   Κατά την υποβολή, καλεί το endpoint `/api/auth/login` του backend.
-    *   Σε περίπτωση επιτυχίας, αποθηκεύει το JWT token που λαμβάνει με `AsyncStorage.setItem('userToken', token)`.
-    *   Πραγματοποιεί πλοήγηση στην οθόνη `Home` χρησιμοποιώντας `navigation.reset`, ώστε ο χρήστης να μην μπορεί να επιστρέψει στην οθόνη Login με το back button.
-    *   Εμφανίζει μηνύματα σφάλματος ή επιτυχίας με `Alert`.
-*   **`RegisterScreen.tsx`:** (Placeholder)
-    *   Προς το παρόν περιέχει βασική δομή και κουμπιά πλοήγησης.
-    *   Απαιτείται η προσθήκη πεδίων εισαγωγής (name, email, password) και λογικής για την κλήση του `/api/auth/register`.
-*   **`HomeScreen.tsx`:** (Placeholder)
+    *   Πεδία εισαγωγής για email και password.
+    *   Κλήση του endpoint `/api/auth/login`.
+    *   Αποθήκευση JWT token με `AsyncStorage`.
+    *   Πλοήγηση στην `HomeScreen` μετά από επιτυχή σύνδεση.
+    *   Εμφάνιση μηνυμάτων σφάλματος.
+*   **`RegisterScreen.tsx`:**
+    *   Πεδία εισαγωγής για name, email, password.
+    *   Κλήση του `/api/auth/register`.
+    *   Εμφάνιση μηνυμάτων επιτυχίας/σφάλματος.
+    *   Πλοήγηση στην `LoginScreen` μετά από επιτυχή εγγραφή.
+*   **`HomeScreen.tsx`:**
     *   Η οθόνη στην οποία μεταφέρεται ο χρήστης μετά την επιτυχή σύνδεση.
-    *   Προς το παρόν εμφανίζει ένα μήνυμα καλωσορίσματος και placeholder κουμπιά για μελλοντικές λειτουργίες (Logout, View Restaurants, Profile).
+    *   Κουμπιά πλοήγησης για "View Restaurants" και "My Profile / Bookings".
+    *   Κουμπί "Logout".
+*   **`RestaurantListScreen.tsx`:**
+    *   Καλεί το `GET /api/restaurants` για τη λήψη και εμφάνιση λίστας εστιατορίων.
+    *   Υποστηρίζει αναζήτηση με βάση το όνομα και την τοποθεσία (client-side filtering προς το παρόν).
+    *   Διαθέτει λειτουργία pull-to-refresh.
+    *   **TODO:** Ενεργοποίηση πλοήγησης στην `RestaurantDetailScreen` με τα στοιχεία του εστιατορίου.
+*   **`ProfileScreen.tsx`:** (Placeholder)
+    *   Βασική δομή.
+    *   **TODO:** Κλήση του `GET /api/reservations/my` για εμφάνιση ιστορικού κρατήσεων.
+    *   **TODO:** Υλοποίηση δυνατότητας τροποποίησης/διαγραφής κρατήσεων.
 
-**Μελλοντικές Υλοποιήσεις (Frontend):**
+**TODO - Μελλοντικές Υλοποιήσεις (Frontend):**
 
-*   Πλήρης υλοποίηση της `RegisterScreen`.
-*   Υλοποίηση της `RestaurantListScreen` για την εμφάνιση των εστιατορίων (κλήση του `GET /api/restaurants`).
-*   Υλοποίηση της `BookingFormScreen` για τη φόρμα κράτησης (κλήση του `POST /api/reservations`).
-*   Υλοποίηση της `ProfileScreen` για την προβολή ιστορικού κρατήσεων (κλήση του `GET /api/reservations/my`) και τη δυνατότητα τροποποίησης/διαγραφής μελλοντικών κρατήσεων (κλήση `PUT/DELETE /api/reservations/:id`).
-*   Διαχείριση κατάστασης αυθεντικοποίησης στο `App.tsx` (έλεγχος ύπαρξης token κατά την εκκίνηση).
-*   Υλοποίηση λειτουργίας Logout (διαγραφή token από AsyncStorage, πλοήγηση στο Login).
-*   Δημιουργία ενός service layer ή context για την κεντρική διαχείριση των API κλήσεων και του authentication token.
+*   **`RestaurantDetailScreen.tsx`:**
+    *   **TODO:** Δημιουργία και υλοποίηση της οθόνης για εμφάνιση λεπτομερειών ενός εστιατορίου.
+    *   **TODO:** Κουμπί πλοήγησης προς `BookingFormScreen`.
+*   **`BookingFormScreen.tsx`:**
+    *   **TODO:** Δημιουργία και υλοποίηση της φόρμας κράτησης (επιλογή ημερομηνίας, ώρας, ατόμων).
+    *   **TODO:** Κλήση του `POST /api/reservations`.
+*   **Authentication Flow:**
+    *   **TODO:** Διαχείριση κατάστασης αυθεντικοποίησης στο `App.tsx` (έλεγχος ύπαρξης token κατά την εκκίνηση για αυτόματη πλοήγηση στην `HomeScreen` αν ο χρήστης είναι ήδη συνδεδεμένος).
+    *   **TODO:** Καθαρισμός token από `AsyncStorage` κατά το Logout στην `HomeScreen`.
+*   **Βελτιώσεις UI/UX:**
+    *   **TODO:** Γενική βελτίωση της εμφάνισης και της εμπειρίας χρήστη σε όλες τις οθόνες.
+    *   **TODO:** Προσθήκη πιο όμορφων loading indicators ή skeleton screens.
+*   **Error Handling & Feedback:**
+    *   **TODO:** Πιο ολοκληρωμένη διαχείριση σφαλμάτων δικτύου και API.
+*   **Testing:**
+    *   **TODO:** Προσθήκη unit/integration tests.
 
 ## 6. Οδηγίες Εγκατάστασης & Εκτέλεσης
 
@@ -346,9 +377,10 @@ ALTER TABLE reservations ADD INDEX idx_restaurant_reservations (restaurant_id, r
 **Απαιτούμενα Εργαλεία:**
 
 *   **Git:** Για τη λήψη του κώδικα.
-*   **Node.js & npm:** Για την εκτέλεση του backend και τη διαχείριση πακέτων frontend.
+*   **Node.js & npm:** (Προτείνεται Node 18 LTS ή νεότερη) Για την εκτέλεση του backend και τη διαχείριση πακέτων frontend.
 *   **Docker Desktop:** Για την εκτέλεση της βάσης δεδομένων MariaDB σε container.
-*   **Android Studio & Emulator:** (Ή ρύθμιση για εκτέλεση σε φυσική συσκευή Android) Για την εκτέλεση του frontend.
+*   **Android Studio (τελευταία σταθερή έκδοση):** Με εγκατεστημένο το Android SDK Platform 34 (ή την έκδοση που χρησιμοποιεί το project) και Android SDK Build-Tools.
+*   **Java Development Kit (JDK):** **JDK 17** (π.χ., Eclipse Temurin ή Microsoft OpenJDK). Η μεταβλητή περιβάλλοντος `JAVA_HOME` πρέπει να είναι ρυθμισμένη σε αυτό το JDK.
 *   Ένα εργαλείο διαχείρισης βάσεων δεδομένων (π.χ., DBeaver, HeidiSQL) για την εκτέλεση του αρχικού SQL script.
 
 **Βήματα:**
@@ -405,17 +437,56 @@ ALTER TABLE reservations ADD INDEX idx_restaurant_reservations (restaurant_id, r
 
 3.  **Frontend Setup:**
     *   Ανοίξτε ένα **νέο** τερματικό/κονσόλα.
-    *   Μεταβείτε στον φάκελο του frontend:
-        ```bash
-        cd frontend
-        ```
-    *   Εγκαταστήστε τις εξαρτήσεις:
+    *   Μεταβείτε στον φάκελο του frontend: `cd frontend`
+    *   Ρυθμίστε το Android Studio Gradle JDK:
+        *   Ανοίξτε το project `frontend/android` στο Android Studio.
+        *   Πηγαίνετε **File > Settings > Build, Execution, Deployment > Build Tools > Gradle**.
+        *   Στο **Gradle JDK**, επιλέξτε την εγκατάσταση του **JDK 17**.
+        *   Πατήστε Apply/OK και περιμένετε να ολοκληρωθεί το Gradle Sync.
+    *   Εγκαταστήστε τις εξαρτήσεις (αν δεν το έχετε κάνει ήδη μετά την αρχικοποίηση):
         ```bash
         npm install
         ```
-    *   Βεβαιωθείτε ότι έχετε έναν Android emulator να τρέχει ή μια συσκευή συνδεδεμένη.
-    *   Εκκινήστε την εφαρμογή React Native:
+    *   Βεβαιωθείτε ότι έχετε έναν Android emulator να τρέχει (εκκίνηση από το Device Manager του Android Studio) ή μια συσκευή συνδεδεμένη.
+    *   Εκκινήστε τον Metro bundler (σε ένα terminal):
+        ```bash
+        npx react-native start --reset-cache
+        ```
+    *   Εκκινήστε την εφαρμογή React Native (σε **άλλο** terminal):
         ```bash
         npx react-native run-android
         ```
-        Η εφαρμογή θα πρέπει να γίνει build και να ανοίξει στον emulator/συσκευή, εμφανίζοντας αρχικά την οθόνη Login. 
+        Η εφαρμογή θα πρέπει να γίνει build και να ανοίξει στον emulator/συσκευή.
+
+4.  **Προσθήκη του JAVA_HOME στις μεταβλητές περιβάλλοντος:**
+    *   Ενεργοποίηση του JAVA_HOME για JDK 17:
+        ```bash
+        export JAVA_HOME=/path/to/jdk-17
+        ```
+    *   Επιβεβαίωση της ρύθμισης:
+        ```bash
+        java -version
+        ```
+        Η έκδοση που πρέπει να εμφανίζεται είναι 17.0.x ή νεότερη.
+
+5.  **Εκτέλεση του αρχικού SQL script:**
+    *   Χρησιμοποιήστε ένα εργαλείο διαχείρισης βάσεων δεδομένων (π.χ., DBeaver, HeidiSQL) για την εκτέλεση του αρχικού SQL script που βρίσκεται στο αρχείο `database_setup.sql` (ή στην ενότητα 4 της παρούσας αναφοράς).
+
+6.  **Εκτέλεση του backend server:**
+    *   Μεταβείτε στον φάκελο του backend και εκτελέστε τον server:
+        ```bash
+        npm run dev
+        ```
+        Ο server θα πρέπει να τρέχει στη διεύθυνση `http://localhost:3000` και να συνδεθεί επιτυχώς στη βάση.
+
+7. **Εκτέλεση της εφαρμογής:**
+    *   Εκκινήστε την εφαρμογή React Native από το τερματικό/κονσόλα που έχετε ανοίξει για το frontend.
+    *   Η εφαρμογή θα πρέπει να γίνει build και να ανοίξει στον emulator/συσκευή.
+
+Το παραπάνω οδηγίες θα πρέπει να εκτελεστούν για κάθε νέο υπολογιστή ή νέα περιβάλλον που χρησιμοποιείτε για την ανάπτυξη ή την εκτέλεση της εφαρμογής.
+
+Παρακαλώ διαβάστε προσεκτικά και ακολουθήστε πλήρως τις οδηγίες για να εξασφαλίσετε την επιτυχή εγκατάσταση και εκτέλεση της εφαρμογής.
+
+Εάν διαπιστώσετε οποιαδήποτε πρόβλημα κατά την εκτέλεση των βημάτων, παρακαλώ επικοινωνήστε μαζί μας για βοήθεια ή περισσότερες λεπτομέρειες.
+
+Χρόνια πολλά και καλή εκτέλεση της εργασίας! 
